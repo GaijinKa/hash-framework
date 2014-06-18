@@ -1,4 +1,13 @@
 {
+  "name": "Hash Framework",
+  "description" : "A minimal MVC javascript framework."
+  "version": "0.0.1",
+  "author": "Pasquale Boemio <boemianrapsodi@gmail.com>",
+  "repository" : {
+    "type": "git",
+    "url": "https://github.com/helloIAmPau/hash-framework"
+  },
+  "keywords" : ["MVC", "client", "browser"],
   "main": "src/main.js",
   "scripts": {
     "postinstall": "./node_modules/.bin/grunt",
