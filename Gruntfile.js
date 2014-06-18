@@ -13,18 +13,20 @@ module.exports = function(grunt) {
     browserify: {
       dist: {
         files: {
-          'dist/h.bundle.js': ['<%= sources %>'],
+          'dist/hash.bundle.js': 'src/index.js',
         },
-        bundleOptions: {
-          standalone: 'ufo'
+        options: {
+          bundleOptions: {
+            standalone: 'H'
+          }
         }
       }
     },
 
     uglify: {
       dist: {
-        src: 'dist/h.bundle.js',
-        dest: 'dist/h.min.js'
+        src: 'dist/hash.bundle.js',
+        dest: 'dist/hash.min.js'
       }
     },
 
@@ -43,6 +45,10 @@ module.exports = function(grunt) {
       }
     },
 
+    mocha_phantomjs: {
+      integration: ['integration-test/index.html']
+    },
+
     watch: {
       test: {
         files: ['<%= files %>'],
@@ -57,6 +63,7 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-mocha-cli');
+  grunt.loadNpmTasks('grunt-mocha-phantomjs');
 
   grunt.loadNpmTasks('grunt-contrib-clean');
 
@@ -66,7 +73,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-browserify');
 
   grunt.registerTask('unit-test', ['jshint', 'mochacli:unit']);
-  grunt.registerTask('test', ['unit-test']);
+  grunt.registerTask('integration-test', ['mocha_phantomjs']);
+  grunt.registerTask('test', ['unit-test', 'integration-test']);
 
   grunt.loadNpmTasks('grunt-curl');
 

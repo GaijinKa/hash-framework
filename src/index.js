@@ -6,6 +6,6 @@
  **/
 
 module.exports = {
-  Router = require('./src/router');
-  Model = require('./src/model');
+  Router: require('./router'),
+  Model: require('./model')
 };

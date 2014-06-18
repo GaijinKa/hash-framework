@@ -126,7 +126,7 @@ describe('The framework model', function(done) {
     var DOM = {};
 
     global.document.querySelector = function(string) {
-      string.should.be.equal('.child[data-store="testName"]');
+      string.should.be.equal('.child[data-view="testName"]');
       return DOM;
     };
 

@@ -18,7 +18,7 @@ Model.extend = function(className) {
     var _updateDOM = function(changes) {
       for(var index in changes) {
         var change = changes[index];
-        var queryString = '.' + className + '[data-store="' + change.name + '"]';
+        var queryString = '.' + className + '[data-view="' + change.name + '"]';
         var DOM = document.querySelector(queryString);
         if(DOM)
           DOM.textContent = change.object[change.name];

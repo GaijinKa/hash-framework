@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet"
+    href="../node_modules/grunt-mocha-phantomjs/node_modules/mocha-phantomjs/node_modules/mocha/mocha.css" />
+  </head>
+  <body>
+    <div id="mocha"></div>
+    <div id="testzone">
+      <input class="TestModel" data-store="testField">
+      <span class="TestModel" data-view="testField"></span>
+    </div>
+    <script
+src="../node_modules/grunt-mocha-phantomjs/node_modules/mocha-phantomjs/node_modules/mocha/mocha.js"></script>
+    <script src="../node_modules/chai/chai.js"></script>
+    <script src="../dist/hash.bundle.js"></script>
+    <script src="./integration.test.js"></script>
+    <script>
+      if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
+      else { mocha.run(); }
+    </script>
+  </body>
+</html>
