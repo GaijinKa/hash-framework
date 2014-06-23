@@ -1,0 +1,25 @@
+{
+  "name": "hash",
+  "version": "0.0.2",
+  "homepage": "https://github.com/helloIAmPau/hash-framework",
+  "authors": [
+    "Pasquale Boemio <boemianrapsodi@gmail.com>"
+  ],
+  "description": "The Hash framework: a minimal MVC javascript framework",
+  "main": "dist/hash.min.js",
+  "keywords": [
+    "MVC",
+    "browser"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "test",
+    "Gruntfile.js",
+    "integration-test",
+    "lib",
+    "package.json",
+    "src"
+  ]
+}
