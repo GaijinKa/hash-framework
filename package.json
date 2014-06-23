@@ -1,5 +1,5 @@
 {
-  "name": "hash-framework",
+  "name": "hash",
   "description": "A minimal MVC javascript framework.",
   "version": "0.0.1",
   "author": "Pasquale Boemio <boemianrapsodi@gmail.com>",
