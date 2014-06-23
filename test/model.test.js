@@ -1,7 +1,20 @@
 var chai = require('chai');
 var should = chai.should();
 
-var Model = require('../src/model');
+var rewire = require('rewire');
+
+var Model;
+
+var MockRequest = {
+  on: function() {},
+  end: function() {}
+};
+
+var MockHTTP = {
+  request: function(options, callback) {
+    return MockRequest;
+  }
+};
 
 describe('The framework model', function(done) {
 
@@ -10,11 +23,20 @@ describe('The framework model', function(done) {
       addEventListener: function(name, callback) {},
       querySelector: function(query) {}
     };
+    global.location = {
+      hostname: 'testhost',
+      port: 'testport',
+      pathname: '/path/'
+    };
+    Model = rewire('../src/model');
+    Model.__set__('http', MockHTTP);
     done();
   });
 
   afterEach(function(done) {
     delete global.document;
+    delete global.location;
+    Model = null;
     done();
   });
 
@@ -23,13 +45,13 @@ describe('The framework model', function(done) {
       done();
     };
 
-    var child = Model.extend();
+    var child = Model.extend('test');
     var childInstance = new child();
     childInstance.isDone();
   });
 
   it('should register an input listener', function(done) {
-    var child = Model.extend();
+    var child = Model.extend('test');
 
     global.document.addEventListener = function(name, callback) {
       name.should.be.equal('input');
@@ -150,4 +172,38 @@ describe('The framework model', function(done) {
     }, 100);
   });
 
+  it('should perform a request', function(done) {
+    var oldRequest = MockHTTP.request;
+    MockHTTP.request = function(options, callback) {
+      MockHTTP.request = oldRequest;
+      options.hostname.should.be.equal('testhost');
+      options.port.should.be.equal('testport');
+      options.path.should.be.equal('/path/model?field=value');
+      options.method.should.be.equal('method');
+      callback.should.be.a('function');
+      done();
+      return MockRequest;
+    };
+
+    var method = Model.__get__('_doRequest');
+    var child = Model.extend('Model');
+    var uut = new child();
+    uut.field = 'value';
+
+    method('method', uut, null, null);
+  });
+
+  it('should call end on request', function(done) {
+    var oldEnd = MockRequest.end;
+    MockRequest.end = function() {
+      MockRequest.end = oldEnd;
+      done();
+    };
+
+    var method = Model.__get__('_doRequest');
+    var child = Model.extend('Model');
+    var uut = new child();
+
+    method('method', uut, null, null);
+  });
 });
